@@ -1,0 +1,17 @@
+/* frontend/src/App.css */
+/* ... (mevcut CSS'inize ekleyin) */
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-area {
+  flex-grow: 1;
+  margin-right: 400px; /* AIPopup genişliği kadar boşluk bırakır */
+  transition: margin-right 0.3s ease;
+}
+
+.content-area.popup-open {
+  margin-right: 0;
+}
