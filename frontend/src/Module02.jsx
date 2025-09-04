@@ -2,7 +2,7 @@
 
 // frontend/src/Module02.jsx
 import { useState, useRef, useEffect } from "react"
-import CodeEditor from "./components/CodeEditor.jsx"
+import CodeEditor from "./components/ClientCodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
 import { Link } from "react-router-dom"
 

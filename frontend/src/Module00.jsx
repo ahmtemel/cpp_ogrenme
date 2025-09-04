@@ -2,7 +2,7 @@
 
 // frontend/src/Module00.jsx
 import { useState, useRef } from "react"
-import CodeEditor from "./components/CodeEditor.jsx"
+import CodeEditor from "./components/ClientCodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
 
 function Module00() {
