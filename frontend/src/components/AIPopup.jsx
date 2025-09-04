@@ -18,7 +18,7 @@ const AIPopup = ({ onClose, initialQuestion, fullContent, currentCode }) => {
     console.log('Current code length:', currentCode ? currentCode.length : 0);
     
     try {
-      const response = await axios.post('http://localhost:3001/api/ask-gemini', {
+      const response = await axios.post('https://cpp-ogrenme.onrender.com/api/ask-gemini', {
         question: question,
         fullContent: fullContent,
         currentCode: currentCode

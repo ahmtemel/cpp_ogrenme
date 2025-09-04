@@ -21,7 +21,7 @@ const CodeEditor = React.forwardRef((props, ref) => {
     console.log('Code to send:', code);
     
     try {
-      const response = await axios.post('http://localhost:3001/api/run', { code });
+      const response = await axios.post('https://cpp-ogrenme.onrender.com/api/run', { code });
       console.log('=== Frontend: Received response from backend ===');
       console.log('Full response:', response);
       console.log('Response data:', response.data);
