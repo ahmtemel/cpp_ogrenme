@@ -1,17 +1,19 @@
+"use client"
+
 // frontend/src/Module03.jsx
-import React, { useState, useRef, useEffect } from 'react';
-import CodeEditor from './components/CodeEditor.jsx';
-import AIPopup from './components/AIPopup.jsx';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from "react"
+import CodeEditor from "./components/CodeEditor.jsx"
+import AIPopup from "./components/AIPopup.jsx"
+import { Link } from "react-router-dom"
 
 function Module03({ setIsPopupVisibleInApp }) {
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedText, setSelectedText] = useState('');
+  const [showPopup, setShowPopup] = useState(false)
+  const [selectedText, setSelectedText] = useState("")
 
   useEffect(() => {
-    setIsPopupVisibleInApp(showPopup);
-  }, [showPopup, setIsPopupVisibleInApp]);
-  
+    setIsPopupVisibleInApp(showPopup)
+  }, [showPopup, setIsPopupVisibleInApp])
+
   const [lessonCode1, setLessonCode1] = useState(`#include <iostream>
 #include <string>
 
@@ -88,112 +90,187 @@ int main() {
     scavTrap.guardGate();
     std::cout << "--- main fonksiyonu bitiyor ---" << std::endl;
     return 0;
-}`);
-  const [lessonOutput1, setLessonOutput1] = useState('');
-  
-  const [freeCode, setFreeCode] = useState('');
-  const [freeOutput, setFreeOutput] = useState('');
+}`)
+  const [lessonOutput1, setLessonOutput1] = useState("")
 
-  const contentRef = useRef(null);
+  const [freeCode, setFreeCode] = useState("")
+  const [freeOutput, setFreeOutput] = useState("")
 
-  const handleOpenPopup = (text = '') => {
-    const fullContent = contentRef.current ? contentRef.current.innerText : '';
-    setSelectedText(text);
-    setShowPopup(true);
-  };
+  const contentRef = useRef(null)
+
+  const handleOpenPopup = (text = "") => {
+    const fullContent = contentRef.current ? contentRef.current.innerText : ""
+    setSelectedText(text)
+    setShowPopup(true)
+  }
 
   const handleTextSelection = () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
+    const selection = window.getSelection()
+    const selectedText = selection.toString().trim()
     if (selectedText && selection.anchorNode) {
-      let currentElement = selection.anchorNode.nodeType === Node.TEXT_NODE 
-        ? selection.anchorNode.parentElement 
-        : selection.anchorNode;
+      let currentElement =
+        selection.anchorNode.nodeType === Node.TEXT_NODE ? selection.anchorNode.parentElement : selection.anchorNode
       while (currentElement) {
-        if (currentElement.classList && 
-            (currentElement.classList.contains('CodeMirror') || 
-             currentElement.classList.contains('editor-section'))) {
-          return;
+        if (
+          currentElement.classList &&
+          (currentElement.classList.contains("CodeMirror") || currentElement.classList.contains("editor-section"))
+        ) {
+          return
         }
-        currentElement = currentElement.parentElement;
+        currentElement = currentElement.parentElement
       }
-      handleOpenPopup(`Bu kısımda anlamadığım var: "${selectedText}"`);
+      handleOpenPopup(`Bu kısımda anlamadığım var: "${selectedText}"`)
     }
-  };
+  }
 
   return (
     <>
       <header className="App-header">
         <h1>C++ OOP Öğrenme Platformu</h1>
         <button onClick={() => handleOpenPopup()}>Yardımcıya Sor</button>
-        <Link to="/" style={{ marginLeft: 'auto', textDecoration: 'none', color: '#fff' }}>Ana Sayfa</Link>
+        <Link to="/" style={{ marginLeft: "auto", textDecoration: "none", color: "#fff" }}>
+          Ana Sayfa
+        </Link>
       </header>
       <main>
         <section ref={contentRef} onMouseUp={handleTextSelection}>
           <h2>Modül 03: Kalıtım (Inheritance)</h2>
           <p>
-            Kalıtım, bir sınıfın (türetilmiş sınıf) başka bir sınıftan (temel sınıf) özelliklerini ve davranışlarını miras almasını sağlayan temel bir OOP prensibidir. Bu sayede kod tekrarını önler ve daha düzenli bir sınıf hiyerarşisi oluşturabilirsiniz.
+            Kalıtım, bir sınıfın (türetilmiş sınıf) başka bir sınıftan (temel sınıf) özelliklerini ve davranışlarını
+            miras almasını sağlayan temel bir OOP prensibidir. Bu sayede kod tekrarını önler ve daha düzenli bir sınıf
+            hiyerarşisi oluşturabilirsiniz.
           </p>
           <p>
-            <b>Göreviniz (Aaaaand... OPEN!):</b> İlk olarak, bir robot temel sınıfı olan <b>ClapTrap</b>'ı uygulayacaksınız. Ardından, <b>ScavTrap</b> ve <b>FragTrap</b> sınıflarını bu temel sınıftan türeteceksiniz.
+            <b>Göreviniz (Aaaaand... OPEN!):</b> İlk olarak, bir robot temel sınıfı olan <b>ClapTrap</b>'ı
+            uygulayacaksınız. Ardından, <b>ScavTrap</b> ve <b>FragTrap</b> sınıflarını bu temel sınıftan türeteceksiniz.
           </p>
 
           <h3>Ders 1: Temel Sınıf ve Türetilmiş Sınıf</h3>
           <p>
-            Temel sınıf, ortak özellikleri ve davranışları tanımladığınız ana sınıftır. Türetilmiş sınıflar ise bu temel sınıftan kalıtım alarak, ortak özelliklere ek olarak kendi benzersiz özelliklerini ekler.
+            Temel sınıf, ortak özellikleri ve davranışları tanımladığınız ana sınıftır. Türetilmiş sınıflar ise bu temel
+            sınıftan kalıtım alarak, ortak özelliklere ek olarak kendi benzersiz özelliklerini ekler.
           </p>
           <p>
-            Aşağıdaki örnekte, bir <b>ClapTrap</b> temel sınıfı ve ondan kalıtım alan <b>ScavTrap</b> türetilmiş sınıfı oluşturulmuştur. `ScavTrap`, temel sınıftaki `attack`, `takeDamage` ve `beRepaired` gibi fonksiyonlara erişebilir ve kendi özel fonksiyonu olan `guardGate`'i ekleyebilir.
+            Aşağıdaki örnekte, bir <b>ClapTrap</b> temel sınıfı ve ondan kalıtım alan <b>ScavTrap</b> türetilmiş sınıfı
+            oluşturulmuştur. `ScavTrap`, temel sınıftaki `attack`, `takeDamage` ve `beRepaired` gibi fonksiyonlara
+            erişebilir ve kendi özel fonksiyonu olan `guardGate`'i ekleyebilir.
           </p>
           <div className="editor-section">
             <h3>📚 Örnek: `ClapTrap` ve `ScavTrap` Kalıtımı</h3>
             <p>
-              Aşağıdaki kodu inceleyerek kalıtımın nasıl çalıştığını gözlemleyebilirsiniz. `ScavTrap` nesnesi oluşturulduğunda önce temel sınıf (`ClapTrap`), sonra türetilmiş sınıfın kurucusunun çağrıldığına dikkat edin. Yıkım ise ters sırada gerçekleşir.
+              Aşağıdaki kodu inceleyerek kalıtımın nasıl çalıştığını gözlemleyebilirsiniz. `ScavTrap` nesnesi
+              oluşturulduğunda önce temel sınıf (`ClapTrap`), sonra türetilmiş sınıfın kurucusunun çağrıldığına dikkat
+              edin. Yıkım ise ters sırada gerçekleşir.
             </p>
-            <CodeEditor 
-              code={lessonCode1} 
-              setCode={setLessonCode1} 
-              output={lessonOutput1} 
+            <CodeEditor
+              code={lessonCode1}
+              setCode={setLessonCode1}
+              output={lessonOutput1}
               setOutput={setLessonOutput1}
               title="Kalıtım Örneği"
             />
             <h4>Örnek Çıktının Adım Adım Açıklaması</h4>
             <ol>
-                <li><b><code>ScavTrap scavTrap("Serena");</code></b>: Bu satır, bir <code>ScavTrap</code> nesnesi oluşturur. Ancak <code>ScavTrap</code>, <code>ClapTrap</code>'tan türediği için önce <b><code>ClapTrap</code>'in kurucusu</b> çağrılır. Ardından, <b><code>ScavTrap</code>'in kendi kurucusu</b> çağrılır ve <code>_hitPoints</code>, <code>_energyPoints</code> gibi değerleri günceller.</li>
-                <li><b><code>scavTrap.attack("Düşman 1");</code></b>: Bu satırda, <code>ScavTrap</code> nesnesi, temel sınıfından miras aldığı <b><code>attack</code></b> fonksiyonunu kullanır.</li>
-                <li><b><code>scavTrap.takeDamage(10);</code></b>: Bu satırda da yine temel sınıftan miras alınan <b><code>takeDamage</code></b> fonksiyonu çağrılır.</li>
-                <li><b><code>scavTrap.beRepaired(5);</code></b>: Bu satırda da yine temel sınıftan miras alınan <b><code>beRepaired</code></b> fonksiyonu çağrılır.</li>
-                <li><b><code>scavTrap.guardGate();</code></b>: Bu satırda, <code>ScavTrap</code>'a özel olarak tanımlanmış <b><code>guardGate</code></b> fonksiyonu çağrılır.</li>
-                <li><b><code>return 0;</code></b>: main fonksiyonu bittiğinde nesneler bellekten silinir. Yıkım sırası, yapım sırasının tersidir. Bu yüzden önce <b><code>ScavTrap</code>'in yıkıcısı</b>, ardından <b><code>ClapTrap</code>'in yıkıcısı</b> çağrılır.</li>
+              <li>
+                <b>
+                  <code>ScavTrap scavTrap("Serena");</code>
+                </b>
+                : Bu satır, bir <code>ScavTrap</code> nesnesi oluşturur. Ancak <code>ScavTrap</code>,{" "}
+                <code>ClapTrap</code>'tan türediği için önce{" "}
+                <b>
+                  <code>ClapTrap</code>'in kurucusu
+                </b>{" "}
+                çağrılır. Ardından,{" "}
+                <b>
+                  <code>ScavTrap</code>'in kendi kurucusu
+                </b>{" "}
+                çağrılır ve <code>_hitPoints</code>, <code>_energyPoints</code> gibi değerleri günceller.
+              </li>
+              <li>
+                <b>
+                  <code>scavTrap.attack("Düşman 1");</code>
+                </b>
+                : Bu satırda, <code>ScavTrap</code> nesnesi, temel sınıfından miras aldığı{" "}
+                <b>
+                  <code>attack</code>
+                </b>{" "}
+                fonksiyonunu kullanır.
+              </li>
+              <li>
+                <b>
+                  <code>scavTrap.takeDamage(10);</code>
+                </b>
+                : Bu satırda da yine temel sınıftan miras alınan{" "}
+                <b>
+                  <code>takeDamage</code>
+                </b>{" "}
+                fonksiyonu çağrılır.
+              </li>
+              <li>
+                <b>
+                  <code>scavTrap.beRepaired(5);</code>
+                </b>
+                : Bu satırda da yine temel sınıftan miras alınan{" "}
+                <b>
+                  <code>beRepaired</code>
+                </b>{" "}
+                fonksiyonu çağrılır.
+              </li>
+              <li>
+                <b>
+                  <code>scavTrap.guardGate();</code>
+                </b>
+                : Bu satırda, <code>ScavTrap</code>'a özel olarak tanımlanmış{" "}
+                <b>
+                  <code>guardGate</code>
+                </b>{" "}
+                fonksiyonu çağrılır.
+              </li>
+              <li>
+                <b>
+                  <code>return 0;</code>
+                </b>
+                : main fonksiyonu bittiğinde nesneler bellekten silinir. Yıkım sırası, yapım sırasının tersidir. Bu
+                yüzden önce{" "}
+                <b>
+                  <code>ScavTrap</code>'in yıkıcısı
+                </b>
+                , ardından{" "}
+                <b>
+                  <code>ClapTrap</code>'in yıkıcısı
+                </b>{" "}
+                çağrılır.
+              </li>
             </ol>
           </div>
-          
+
           <div className="editor-section">
             <h3>✏️ Alıştırma Alanı</h3>
             <p>
-              Şimdi bu örnekten yola çıkarak, `ClapTrap` sınıfından kalıtım alan ve <b>FragTrap</b>'a benzeyen yeni bir sınıf oluşturun. Bu sınıfın kendine ait özel bir fonksiyonu (`highFivesGuys`) olsun ve kurucu/yıkıcı mesajlarını ekrana yazdırsın.
+              Şimdi bu örnekten yola çıkarak, `ClapTrap` sınıfından kalıtım alan ve <b>FragTrap</b>'a benzeyen yeni bir
+              sınıf oluşturun. Bu sınıfın kendine ait özel bir fonksiyonu (`highFivesGuys`) olsun ve kurucu/yıkıcı
+              mesajlarını ekrana yazdırsın.
             </p>
-            <CodeEditor 
-              code={freeCode} 
-              setCode={setFreeCode} 
-              output={freeOutput} 
+            <CodeEditor
+              code={freeCode}
+              setCode={setFreeCode}
+              output={freeOutput}
               setOutput={setFreeOutput}
               title="Serbest Alıştırma"
             />
           </div>
-          
         </section>
       </main>
       {showPopup && (
         <AIPopup
           onClose={() => setShowPopup(false)}
           initialQuestion={selectedText}
-          fullContent={contentRef.current ? contentRef.current.innerText : ''}
+          fullContent={contentRef.current ? contentRef.current.innerText : ""}
           currentCode={freeCode || lessonCode1}
         />
       )}
     </>
-  );
+  )
 }
 
-export default Module03;
+export default Module03

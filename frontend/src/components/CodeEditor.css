@@ -1,3 +1,71 @@
-.react-codemirror2 .CodeMirror {
+/* Updated CodeEditor with romantic theme */
+.cm-editor {
   height: auto;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-family: "Fira Code", "Consolas", monospace;
+  background: var(--card) !important;
+}
+
+.cm-editor.cm-focused {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.cm-cursor {
+  border-left: 2px solid var(--accent);
+}
+
+.cm-selectionBackground {
+  background: rgba(236, 72, 153, 0.2) !important;
+}
+
+.code-editor-container {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.1);
+  border: 1px solid var(--border);
+}
+
+.code-editor-title {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 600;
+}
+
+.code-editor-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.code-editor-output {
+  background: var(--muted);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: "Fira Code", monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--foreground);
+  min-height: 60px;
+  position: relative;
+}
+
+.code-editor-output::before {
+  content: "💖 Çıktı";
+  position: absolute;
+  top: -12px;
+  left: 1rem;
+  background: var(--card);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
 }

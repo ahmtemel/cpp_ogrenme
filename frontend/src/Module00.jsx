@@ -1,177 +1,110 @@
+"use client"
+
 // frontend/src/Module00.jsx
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import CodeEditor from './components/CodeEditor.jsx';
-import AIPopup from './components/AIPopup.jsx';
+import { useState, useRef } from "react"
+import CodeEditor from "./components/CodeEditor.jsx"
+import AIPopup from "./components/AIPopup.jsx"
 
-function Module00({ setIsPopupVisibleInApp }) {
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedText, setSelectedText] = useState('');
-  
-  useEffect(() => {
-    setIsPopupVisibleInApp(showPopup);
-  }, [showPopup, setIsPopupVisibleInApp]);
-  
-  // Konu anlatımı için sabit kod
-  const [lessonCode1, setLessonCode1] = useState(`#include <iostream>
+function Module00() {
+  const [showAIPopup, setShowAIPopup] = useState(false)
+  const [code, setCode] = useState(`#include <iostream>
+using namespace std;
 
 int main() {
-    std::cout << "Merhaba, Dunya!" << std::endl;
+    cout << "Merhaba Aşk Dolu Dünya!" << endl;
     return 0;
-}`);
-  const [lessonOutput1, setLessonOutput1] = useState('');
+}`)
+  const [output, setOutput] = useState("")
+  const codeEditorRef = useRef(null)
 
-  // İkinci dersin örnek kodu
-  const [lessonCode2, setLessonCode2] = useState(`#include <iostream>
-#include <string>
-
-int main() {
-    // Tam sayı (Integer)
-    int tamSayi = 10;
-    std::cout << "Tam Sayi: " << tamSayi << std::endl;
-
-    // Ondalıklı Sayı (Double)
-    double ondalikliSayi = 5.75;
-    std::cout << "Ondalikli Sayi: " << ondalikliSayi << std::endl;
-
-    // Tek karakter (Char)
-    char karakter = 'A';
-    std::cout << "Karakter: " << karakter << std::endl;
-
-    // Metin dizisi (String)
-    std::string metin = "Merhaba C++!";
-    std::cout << "Metin: " << metin << std::endl;
-
-    return 0;
-}`);
-  const [lessonOutput2, setLessonOutput2] = useState('');
-  
-  // Serbest yazım için boş kod
-  const [freeCode, setFreeCode] = useState('');
-  const [freeOutput, setFreeOutput] = useState('');
-
-  const contentRef = useRef(null);
-
-  const handleOpenPopup = (text = '') => {
-    const fullContent = contentRef.current ? contentRef.current.innerText : '';
-    setSelectedText(text);
-    setShowPopup(true);
-  };
-
-  const handleTextSelection = () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    
-    if (selectedText && selection.anchorNode) {
-      let currentElement = selection.anchorNode.nodeType === Node.TEXT_NODE 
-        ? selection.anchorNode.parentElement 
-        : selection.anchorNode;
-      
-      while (currentElement) {
-        if (currentElement.classList && 
-            (currentElement.classList.contains('CodeMirror') || 
-             currentElement.classList.contains('editor-section'))) {
-          return;
-        }
-        currentElement = currentElement.parentElement;
-      }
-      
-      handleOpenPopup(`Bu kısımda anlamadığım var: "${selectedText}"`);
-    }
-  };
+  const handleOpenPopup = () => {
+    setShowAIPopup(true)
+  }
 
   return (
-    <>
-      <header className="App-header">
-        <h1>C++ OOP Öğrenme Platformu</h1>
-        <button onClick={() => handleOpenPopup()}>Yardımcıya Sor</button>
-        <Link to="/" style={{ marginLeft: 'auto', textDecoration: 'none', color: '#fff' }}>Ana Sayfa</Link>
-      </header>
-      <main>
-        <section ref={contentRef} onMouseUp={handleTextSelection}>
-          <h2>Modül 00: Temel Kavramlar ve Sınıflar</h2>
-          <p>
-            C++'a hoş geldiniz! Nesne Yönelimli Programlama (OOP) yolculuğumuza
-            ilk programımızı yazarak başlıyoruz. Her programlama dilinde olduğu gibi,
-            ilk adım ekrana "Merhaba, Dünya!" yazdırmaktır.
-          </p>
-          <p>
-            `#include` direktifi C++'da kütüphaneleri dahil etmek için kullanılır.
-            `iostream` kütüphanesi input/output işlemleri için gereklidir.
-            `std::cout` ise ekrana yazı yazdırmak için kullanılan nesnedir.
-          </p>
-          
-          <div className="editor-section" onMouseUp={(e) => e.stopPropagation()}>
-            <h3>📚 Konu Örneği</h3>
-            <p onMouseUp={(e) => e.stopPropagation()}>Aşağıdaki örnek kodu inceleyip çalıştırabilirsiniz:</p>
-            <CodeEditor 
-              code={lessonCode1} 
-              setCode={setLessonCode1} 
-              output={lessonOutput1} 
-              setOutput={setLessonOutput1}
-              readOnly={true} // Bu örneği sadece okunabilir yaptık
-              title="Konu Örneği"
-            />
-          </div>
+    <div className="module-content">
+      <h2>💖 C++ ile Aşka Giriş 💖</h2>
+      <p>
+        Hoş geldiniz sevgili öğrenciler! C++ programlama diline olan aşkınızı keşfetmeye hazır mısınız? Bu romantik
+        yolculukta, kodlamanın büyülü dünyasında birlikte ilerleyeceğiz.
+      </p>
 
-          <div className="editor-section" onMouseUp={(e) => e.stopPropagation()}>
-            <h3>✏️ Serbest Yazım Alanı</h3>
-            <p onMouseUp={(e) => e.stopPropagation()}>Burada kendi kodlarınızı yazıp deneyebilirsiniz:</p>
-            <CodeEditor 
-              code={freeCode} 
-              setCode={setFreeCode} 
-              output={freeOutput} 
-              setOutput={setFreeOutput}
-              readOnly={false}
-              title="Serbest Yazım"
-              placeholder="Buraya kendi C++ kodunuzu yazın..."
-            />
-          </div>
-        </section>
+      <h3>💕 Neden C++?</h3>
+      <p>
+        C++, programlama dünyasının en güçlü ve etkileyici dillerinden biridir. Tıpkı gerçek aşk gibi, başlangıçta
+        karmaşık görünebilir, ancak zamanla onun güzelliğini ve gücünü keşfedeceksiniz.
+      </p>
 
-        <section style={{ marginTop: '40px' }}>
-          <h2>Konu 2: Değişkenler ve Temel Veri Tipleri</h2>
-          <p>
-              Programlama, verileri işlemekle ilgilidir. C++'ta verileri depolamak için değişkenleri kullanırız.
-              Her değişkenin bir tipi vardır. Örneğin, tam sayılar için `int`, ondalıklı sayılar için `double` kullanılır.
-          </p>
-          <div className="editor-section">
-              <h3>📚 Örnek: Temel Veri Tipleri</h3>
-              <p>Aşağıdaki kodu çalıştırarak farklı veri tiplerinin nasıl tanımlandığını ve kullanıldığını görebilirsiniz.</p>
-              <CodeEditor 
-                  code={lessonCode2} 
-                  setCode={setLessonCode2} 
-                  output={lessonOutput2} 
-                  setOutput={setLessonOutput2}
-                  readOnly={true} // Bu örneği sadece okunabilir yaptık
-                  title="Veri Tipleri Örneği"
-              />
-          </div>
-          
-          <div className="editor-section">
-              <h3>✏️ Alıştırma Alanı</h3>
-              <p>Aşağıdaki alanda, `int` ve `double` kullanarak kendi değişkenlerinizi tanımlayıp ekrana yazdırın.</p>
-              <CodeEditor 
-                  code={freeCode} 
-                  setCode={setFreeCode} 
-                  output={freeOutput} 
-                  setOutput={setFreeOutput}
-                  readOnly={false}
-                  title="Serbest Alıştırma"
-              />
-          </div>
-        </section>
-      </main>
-      {showPopup && (
+      <h3>🌹 İlk Aşk: "Merhaba Dünya"</h3>
+      <p>
+        Her büyük aşk hikayesi bir "merhaba" ile başlar. C++'ta da ilk programımız geleneksel olarak "Merhaba Dünya"
+        programıdır. Aşağıdaki kodu inceleyin ve çalıştırın:
+      </p>
+
+      <CodeEditor
+        ref={codeEditorRef}
+        code={code}
+        setCode={setCode}
+        output={output}
+        setOutput={setOutput}
+        title="💝 İlk Aşk Kodunuz"
+        placeholder="Buraya sevgi dolu kodlarınızı yazın..."
+      />
+
+      <h3>💞 Kod Açıklaması</h3>
+      <p>Bu basit ama güzel kod parçasında:</p>
+      <ul style={{ textAlign: "left", maxWidth: "600px", margin: "0 auto" }}>
+        <li>
+          <strong>#include &lt;iostream&gt;</strong> - Kalbin kapılarını açar (giriş/çıkış işlemleri)
+        </li>
+        <li>
+          <strong>using namespace std;</strong> - Sevgi dilimizi belirler
+        </li>
+        <li>
+          <strong>int main()</strong> - Aşk hikayemizin başlangıcı
+        </li>
+        <li>
+          <strong>cout</strong> - Sevgimizi dünyaya haykırır
+        </li>
+        <li>
+          <strong>return 0;</strong> - Mutlu son
+        </li>
+      </ul>
+
+      <div style={{ marginTop: "2rem", padding: "1rem", background: "var(--muted)", borderRadius: "var(--radius)" }}>
+        <h4>💌 Aşk Notu</h4>
+        <p>
+          Programlama öğrenmek sabır ve sevgi gerektirir. Her hata, sizi daha iyi bir programcı yapar. Kodlarınızla
+          aranızda güçlü bir bağ kurun ve her satırı sevgiyle yazın!
+        </p>
+      </div>
+
+      {showAIPopup && (
         <AIPopup
-          onClose={() => setShowPopup(false)}
-          initialQuestion={selectedText}
-          fullContent={contentRef.current ? contentRef.current.innerText : ''}
-          currentCode={freeCode}
+          onClose={() => setShowAIPopup(false)}
+          initialQuestion=""
+          fullContent="C++ programlama diline giriş, temel kavramlar ve ilk program yazma"
+          currentCode={code}
         />
       )}
-    </>
-  );
+
+      <div style={{ marginTop: "2rem" }}>
+        <button className="btn-primary" onClick={() => setShowAIPopup(true)} style={{ marginRight: "1rem" }}>
+          💕 AI Aşk Danışmanı
+        </button>
+        <button
+          className="btn-secondary"
+          onClick={() =>
+            setCode(
+              '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Merhaba Aşk Dolu Dünya!" << endl;\n    return 0;\n}',
+            )
+          }
+        >
+          🌹 Örnek Kodu Yükle
+        </button>
+      </div>
+    </div>
+  )
 }
 
-export default Module00;
+export default Module00

@@ -1,63 +1,206 @@
-/* frontend/src/App.css */
-
-.main-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Updated App.css with romantic love theme */
+.App {
   text-align: center;
-  width: 100%;
+  min-height: 100vh;
+  background: var(--love-gradient);
+  padding: 2rem 1rem;
 }
 
-.content-area {
-  flex-grow: 1;
-  /* margin-right: 400px; */ /* Bu satır artık gerekli değil */
-  transition: margin-right 0.3s ease;
-  text-align: left;
+.App-header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(253, 242, 248, 0.9) 100%);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(249, 168, 212, 0.3);
 }
 
-.content-area.popup-open {
-  margin-right: 400px; /* Popup açıkken boşluk bırak */
+.App-header h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.editor-section {
-  margin: 30px 0;
-  padding: 20px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+.App-header p {
+  font-size: 1.2rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.editor-section h3 {
-  margin-top: 0;
-  color: #333;
-  font-size: 1.2em;
+/* Navigation styles */
+nav {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.1);
+  backdrop-filter: blur(10px);
 }
 
-.editor-section p {
-  margin-bottom: 15px;
-  color: #666;
-}
-
-/* Ana sayfa modül listesi için stiller */
-.module-list nav ul {
+nav ul {
   list-style: none;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.module-list nav li {
-  margin: 10px 0;
-  font-size: 1.2em;
+nav li {
+  position: relative;
 }
 
-.module-list nav a {
+nav a {
   text-decoration: none;
-  color: #646cff;
-  transition: color 0.2s;
+  color: var(--foreground);
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.module-list nav a:hover {
-  color: #747bff;
-  text-decoration: underline;
+nav a:hover {
+  background: var(--secondary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+nav a.active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: var(--primary-foreground);
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+/* Heart decorations for navigation */
+nav a::before {
+  content: "💕";
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+nav a:hover::before,
+nav a.active::before {
+  opacity: 1;
+}
+
+/* Module content styles */
+.module-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(249, 168, 212, 0.3);
+}
+
+.module-content h2 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.module-content p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  color: var(--foreground);
+}
+
+/* Code blocks with romantic styling */
+pre {
+  background: var(--muted);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  font-family: "Fira Code", monospace;
+  position: relative;
+}
+
+pre::before {
+  content: "💖 Kod Örneği";
+  position: absolute;
+  top: -12px;
+  left: 1rem;
+  background: var(--card);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Romantic loading animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border);
+  border-radius: 50%;
+  border-top-color: var(--accent);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem 0.5rem;
+  }
+
+  .App-header h1 {
+    font-size: 2rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .module-content {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
+
+/* Floating hearts animation */
+@keyframes float-hearts {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.floating-heart {
+  position: fixed;
+  font-size: 1.5rem;
+  color: var(--heart-color);
+  pointer-events: none;
+  animation: float-hearts 8s linear infinite;
+  z-index: 1000;
 }
