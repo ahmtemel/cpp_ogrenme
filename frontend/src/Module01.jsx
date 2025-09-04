@@ -1,18 +1,12 @@
-"use client"
-
 // frontend/src/Module01.jsx
-import { useState, useRef, useEffect } from "react"
-import CodeEditor from "./components/ClientCodeEditor.jsx"
+import { useState, useRef } from "react"
+import CodeEditor from "./components/CodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
 import { Link } from "react-router-dom"
 
-function Module01({ setIsPopupVisibleInApp }) {
+function Module01() {
   const [showPopup, setShowPopup] = useState(false)
   const [selectedText, setSelectedText] = useState("")
-
-  useEffect(() => {
-    setIsPopupVisibleInApp(showPopup)
-  }, [showPopup, setIsPopupVisibleInApp])
 
   const [lessonCode1, setLessonCode1] = useState(`#include <iostream>
 #include <string>

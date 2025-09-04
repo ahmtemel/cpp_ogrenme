@@ -1,25 +1,4 @@
-/* Updated CodeEditor with romantic theme */
-.cm-editor {
-  height: auto;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  font-family: "Fira Code", "Consolas", monospace;
-  background: var(--card) !important;
-}
-
-.cm-editor.cm-focused {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--ring);
-}
-
-.cm-cursor {
-  border-left: 2px solid var(--accent);
-}
-
-.cm-selectionBackground {
-  background: rgba(236, 72, 153, 0.2) !important;
-}
-
+/* Updated CodeEditor with romantic theme for @uiw/react-codemirror */
 .code-editor-container {
   background: var(--card);
   border-radius: var(--radius);
@@ -36,6 +15,19 @@
   font-weight: 600;
 }
 
+/* Style the CodeMirror container */
+.code-editor-container .cm-editor {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 14px;
+}
+
+.code-editor-container .cm-editor.cm-focused {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
 .code-editor-buttons {
   display: flex;
   gap: 1rem;
@@ -48,8 +40,7 @@
   border: 2px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem;
-  margin-top: 1rem;
-  font-family: "Fira Code", monospace;
+  margin-top: 2rem;
   white-space: pre-wrap;
   word-break: break-word;
   color: var(--foreground);
@@ -68,4 +59,5 @@
   font-size: 0.8rem;
   color: var(--accent);
   font-weight: 600;
+  border: 1px solid var(--border);
 }

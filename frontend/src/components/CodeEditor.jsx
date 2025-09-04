@@ -1,5 +1,3 @@
-"use client"
-
 // frontend/src/components/CodeEditor.jsx
 import React, { useState } from "react"
 import CodeMirror from "@uiw/react-codemirror"
@@ -64,8 +62,8 @@ const CodeEditor = React.forwardRef((props, ref) => {
   }
 
   return (
-    <div ref={ref}>
-      <h3>{title || "C++ Kod Editörü"}</h3>
+    <div ref={ref} className="code-editor-container">
+      <h3 className="code-editor-title">{title || "C++ Kod Editörü"}</h3>
       <CodeMirror
         value={code}
         height="300px"
@@ -86,27 +84,15 @@ const CodeEditor = React.forwardRef((props, ref) => {
           highlightSelectionMatches: false,
         }}
       />
-      <div style={{ marginTop: "10px" }}>
-        <button onClick={handleRun} disabled={loading || readOnly} style={{ marginRight: "10px" }}>
+      <div className="code-editor-buttons">
+        <button onClick={handleRun} disabled={loading || readOnly} className="btn-primary">
           {loading ? "Çalıştırılıyor..." : "Kodu Çalıştır"}
         </button>
-        <button onClick={() => setCode("")} disabled={readOnly} style={{ backgroundColor: "#dc3545", color: "white" }}>
+        <button onClick={() => setCode("")} disabled={readOnly} className="btn-secondary">
           Temizle
         </button>
       </div>
-      <h4>Çıktı:</h4>
-      <pre
-        style={{
-          backgroundColor: "#f8f9fa",
-          padding: "10px",
-          borderRadius: "4px",
-          border: "1px solid #dee2e6",
-          minHeight: "50px",
-          whiteSpace: "pre-wrap",
-          wordBreak: "break-word",
-          color: "#212529",
-        }}
-      >
+      <pre className="code-editor-output">
         {output || 'Henüz çıktı yok. Kodu çalıştırmak için "Kodu Çalıştır" butonuna tıklayın.'}
       </pre>
     </div>

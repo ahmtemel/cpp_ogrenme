@@ -1,5 +1,3 @@
-"use client"
-
 // frontend/src/components/AIPopup.jsx
 import { useState } from "react"
 import axios from "axios"
