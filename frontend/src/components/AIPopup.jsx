@@ -8,78 +8,32 @@ const AIPopup = ({ onClose, initialQuestion, fullContent, currentCode }) => {
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-  const retryWithBackoff = async (fn, maxRetries = 3) => {
-    for (let i = 0; i < maxRetries; i++) {
-      try {
-        return await fn();
-      } catch (error) {
-        const isLastRetry = i === maxRetries - 1;
-        const isOverloaded = error.response?.status === 503 || 
-                           error.response?.data?.error?.includes('overloaded') ||
-                           error.response?.data?.details?.includes('overloaded');
-        
-        if (isOverloaded && !isLastRetry) {
-          const waitTime = Math.pow(2, i) * 1000; // 1s, 2s, 4s
-          console.log(`API overloaded, retrying in ${waitTime/1000} seconds...`);
-          await delay(waitTime);
-          continue;
-        }
-        throw error;
-      }
-    }
-  };
-
   const handleAsk = async () => {
     setLoading(true);
     setAnswer('');
+    
+    console.log('=== Frontend: Sending question to Gemini ===');
+    console.log('Question:', question);
+    console.log('Full content length:', fullContent ? fullContent.length : 0);
+    console.log('Current code length:', currentCode ? currentCode.length : 0);
+    
     try {
-      // Enhanced prompt with context
-      const contextualPrompt = `
-Kullanıcı bir C++ öğrenme platformunda. Aşağıdaki bilgileri kullanarak sorusunu yanıtla:
-
-SAYFA İÇERİĞİ:
-${fullContent}
-
-MEVCUT KOD:
-${currentCode}
-
-KULLANICI SORUSU:
-${question}
-
-Lütfen Türkçe olarak, anlaşılır ve eğitici bir şekilde yanıtla. Kod örnekleri varsa açıkla.`;
-
-      // Log the complete prompt to console
-      console.log('=== API\'ye gönderilen tam prompt ===');
-      console.log(contextualPrompt);
-      console.log('=== Prompt sonu ===');
-
-      const response = await retryWithBackoff(async () => {
-        return await axios.post('http://localhost:3001/api/ask-gemini', { 
-          question: contextualPrompt
-        });
+      const response = await axios.post('http://localhost:3001/api/ask-gemini', {
+        question: question,
+        fullContent: fullContent,
+        currentCode: currentCode
       });
       
-      if (response.data && response.data.answer) {
-        setAnswer(response.data.answer);
-      } else {
-        setAnswer('Yanıt alınamadı. Lütfen tekrar deneyin.');
-      }
-    } catch (error) {
-      console.error('API hatası:', error);
+      console.log('=== Frontend: Received response from Gemini ===');
+      console.log('Full response:', response);
+      console.log('Answer received:', response.data.answer);
       
-      // Handle specific error types
-      if (error.response?.status === 503 || 
-          error.response?.data?.details?.includes('overloaded')) {
-        setAnswer('AI servisi şu anda yoğun. Lütfen birkaç dakika sonra tekrar deneyin. 🤖');
-      } else if (error.response?.status >= 500) {
-        setAnswer('Sunucu hatası oluştu. Lütfen daha sonra tekrar deneyin.');
-      } else if (error.code === 'NETWORK_ERROR' || !error.response) {
-        setAnswer('İnternet bağlantınızı kontrol edin ve tekrar deneyin.');
-      } else {
-        setAnswer('Sorunuza bir yanıt bulunamadı. Lütfen daha sonra tekrar deneyin.');
-      }
+      setAnswer(response.data.answer);
+    } catch (error) {
+      console.error('=== Frontend: Gemini API Error ===');
+      console.error('Full error:', error);
+      console.error('Error response:', error.response);
+      setAnswer('Sorunuza bir yanıt bulunamadı. Lütfen daha sonra tekrar deneyin.');
     } finally {
       setLoading(false);
     }

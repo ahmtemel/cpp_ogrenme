@@ -1,68 +1,49 @@
 // frontend/src/App.jsx
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import CodeEditor from './components/CodeEditor.jsx';
-import AIPopup from './components/AIPopup.jsx';
+import Module00 from './Module00.jsx';
+import Module01 from './Module01.jsx';
+import Module02 from './Module02.jsx'; // Yeni eklendi
+import Module03 from './Module03.jsx'; // Yeni eklendi
+import Module04 from './Module04.jsx'; // Yeni eklendi
 
 function App() {
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedText, setSelectedText] = useState('');
-  const [code, setCode] = useState(`#include <iostream>\n\nint main() {\n    std::cout << "Merhaba, Dunya!";\n    return 0;\n}`);
-  const [output, setOutput] = useState('');
-
-  const contentRef = useRef(null);
-  const codeRef = useRef(null);
-
-  const handleOpenPopup = (text = '') => {
-    // Get all text content from the page
-    const fullContent = contentRef.current ? contentRef.current.innerText : '';
-    
-    // Set the selected text as initial question if provided
-    setSelectedText(text);
-    setShowPopup(true);
-  };
-
-  const handleTextSelection = () => {
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    if (selectedText) {
-      handleOpenPopup(`Bu kısımda anlamadığım var: "${selectedText}"`);
-    }
-  };
+  const [isPopupVisibleInApp, setIsPopupVisibleInApp] = useState(false);
 
   return (
     <div className="main-container">
-      <div className="content-area">
+      <div className={`content-area ${isPopupVisibleInApp ? 'popup-open' : ''}`}>
         <header className="App-header">
           <h1>C++ OOP Öğrenme Platformu</h1>
-          <button onClick={() => handleOpenPopup()}>Yardımcıya Sor</button>
         </header>
         <main>
-          <section ref={contentRef} onMouseUp={handleTextSelection}>
-            <h2>Konu 1: Merhaba Dünya!</h2>
-            <p>
-              C++'a hoş geldiniz! Nesne Yönelimli Programlama (OOP) yolculuğumuza
-              ilk programımızı yazarak başlıyoruz. Her programlama dilinde olduğu gibi,
-              ilk adım ekrana "Merhaba, Dünya!" yazdırmaktır. Aşağıdaki kod editörünü
-              kullanarak bu örneği çalıştırabilirsiniz.
-            </p>
-            <p>
-              #include direktifi C++'da kütüphaneleri dahil etmek için kullanılır.
-              iostream kütüphanesi input/output işlemleri için gereklidir.
-              std::cout ise ekrana yazı yazdırmak için kullanılan nesnedir.
-            </p>
-            <CodeEditor ref={codeRef} code={code} setCode={setCode} output={output} setOutput={setOutput} />
-          </section>
+          <Routes>
+            {/* Ana sayfa - Modül listesi */}
+            <Route path="/" element={
+              <section className="module-list">
+                <h2>Modüller</h2>
+                <nav>
+                  <ul>
+                    <li><Link to="/module00">Modül 00: Temel Kavramlar ve Sınıflar</Link></li>
+                    <li><Link to="/module01">Modül 01: Bellek, Puançınlar ve Referanslar</Link></li>
+                    <li><Link to="/module02">Modül 02: Operatör Yükleme ve Kanonik Form</Link></li>
+                    <li><Link to="/module03">Modül 03: Kalıtım</Link></li>
+                    <li><Link to="/module04">Modül 04: Çok Biçimlilik ve Soyut Sınıflar</Link></li>
+                  </ul>
+                </nav>
+              </section>
+            } />
+
+            {/* Modül sayfaları */}
+            <Route path="/module00" element={<Module00 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
+            <Route path="/module01" element={<Module01 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
+            <Route path="/module02" element={<Module02 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
+            <Route path="/module03" element={<Module03 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
+            <Route path="/module04" element={<Module04 />} />
+          </Routes>
         </main>
       </div>
-      {showPopup && (
-        <AIPopup
-          onClose={() => setShowPopup(false)}
-          initialQuestion={selectedText}
-          fullContent={contentRef.current ? contentRef.current.innerText : ''}
-          currentCode={code}
-        />
-      )}
     </div>
   );
 }

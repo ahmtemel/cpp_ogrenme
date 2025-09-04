@@ -4,12 +4,13 @@
   top: 0;
   right: 0;
   width: 400px;
-  height: 100%;
+  height: 100%; /* Yüksekliği ekranın tamamına yayar */
   background-color: #f8f9fa;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   z-index: 1000;
+  overflow-y: hidden; /* Ana konteynerin kaydırmasını engeller */
 }
 
 .ai-popup-content {
@@ -28,6 +29,10 @@
   margin-bottom: 10px;
 }
 
+.ai-popup-header h3 {
+  margin: 0;
+}
+
 .ai-popup-header button {
   background: none;
   border: none;
@@ -38,7 +43,8 @@
 .ai-popup-body {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex-grow: 1; /* Geri kalan dikey alanı kaplar */
+  overflow-y: hidden; /* Bu div'in de kendi başına kaydırmasını engeller */
 }
 
 .ai-popup-body textarea {
@@ -56,8 +62,8 @@
   border-radius: 4px;
   padding: 15px;
   margin-top: 10px;
-  overflow-y: auto;
-  flex-grow: 1;
+  flex-grow: 1; /* Kalan tüm dikey alanı kaplar */
+  overflow-y: auto; /* Yanıt kutusunun kendi içinde kaydırma yapmasını sağlar */
   border: 1px solid #e0e0e0;
 }
 

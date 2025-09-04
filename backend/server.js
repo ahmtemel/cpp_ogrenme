@@ -43,7 +43,11 @@ app.get('/', (req, res) => {
 // JDoodle API ile kod derleme endpoint'i
 app.post('/api/run', async (req, res) => {
     const { code } = req.body;
+    console.log('=== /api/run endpoint called ===');
+    console.log('Received code:', code);
+    
     if (!code) {
+        console.log('Error: No code provided');
         return res.status(400).json({ error: 'Kod bulunamadı.' });
     }
     
@@ -55,8 +59,12 @@ app.post('/api/run', async (req, res) => {
         clientSecret: process.env.JDOODLE_CLIENT_SECRET
     };
     
+    console.log('Sending to JDoodle:', program);
+    
     try {
         const response = await axios.post('https://api.jdoodle.com/v1/execute', program);
+        console.log('JDoodle Response:', response.data);
+        console.log('Sending response to frontend:', response.data);
         res.json(response.data);
     } catch (error) {
         console.error('JDoodle API hatası:', error.response ? error.response.data : error.message);
@@ -66,12 +74,35 @@ app.post('/api/run', async (req, res) => {
 
 // Gemini API ile soru sorma endpoint'i
 app.post('/api/ask-gemini', async (req, res) => {
-    const { question } = req.body;
+    const { question, fullContent, currentCode } = req.body;
+    console.log('=== /api/ask-gemini endpoint called ===');
+    console.log('Received question:', question);
+    console.log('Received fullContent length:', fullContent ? fullContent.length : 0);
+    console.log('Received currentCode length:', currentCode ? currentCode.length : 0);
+    
     if (!question) {
+        console.log('Error: No question provided');
         return res.status(400).json({ error: 'Soru bulunamadı.' });
     }
     
     try {
+        // Enhanced prompt with context
+        const contextualPrompt = `
+Kullanıcı bir C++ öğrenme platformunda. Aşağıdaki bilgileri kullanarak sorusunu yanıtla:
+
+SAYFA İÇERİĞİ:
+${fullContent || 'İçerik mevcut değil'}
+
+MEVCUT KOD:
+${currentCode || 'Kod mevcut değil'}
+
+KULLANICI SORUSU:
+${question}
+
+Lütfen Türkçe olarak, anlaşılır ve eğitici bir şekilde yanıtla. Kod örnekleri varsa açıkla.`;
+
+        console.log('Sending to Gemini API:', contextualPrompt.substring(0, 200) + '...');
+
         const model = genAI.getGenerativeModel({ 
             model: "gemini-2.5-flash-lite",
             generationConfig: {
@@ -82,11 +113,12 @@ app.post('/api/ask-gemini', async (req, res) => {
             }
         });
         
-        const result = await model.generateContent(question);
+        const result = await model.generateContent(contextualPrompt);
         const response = await result.response;
         const text = response.text();
         
-        console.log('Gemini yanıtı alındı:', text.substring(0, 100) + '...');
+        console.log('Gemini yanıtı alındı (ilk 200 karakter):', text.substring(0, 200) + '...');
+        console.log('Sending response to frontend:', { answer: text });
         res.json({ answer: text });
     } catch (error) {
         console.error('Gemini API hatası:', error);
