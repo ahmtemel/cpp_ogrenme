@@ -2,6 +2,7 @@
 import { useState, useRef } from "react"
 import CodeEditor from "./components/CodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
+import QuizSection from "./components/QuizSection.jsx"
 import { Link } from "react-router-dom"
 
 function Module03() {
@@ -253,6 +254,43 @@ int main() {
               title="Serbest Alıştırma"
             />
           </div>
+
+          <QuizSection
+            moduleId="module03"
+            question="ClapTrap sınıfından kalıtım alan FragTrap sınıfı oluşturun. FragTrap'ın highFivesGuys() fonksiyonu olsun."
+            expectedOutput={`ClapTrap Ahmet hazır! Varsayılan can: 10
+FragTrap Ahmet savaşa hazır! Özel can: 100
+High five guys!
+FragTrap Ahmet gitti!
+ClapTrap Ahmet yok oldu!`}
+            initialCode={`#include <iostream>
+#include <string>
+using namespace std;
+
+class ClapTrap {
+protected:
+    string _name;
+    int _hitPoints;
+    int _energyPoints;
+    int _attackDamage;
+
+public:
+    ClapTrap(string name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
+        cout << "ClapTrap " << _name << " hazır! Varsayılan can: " << _hitPoints << endl;
+    }
+    ~ClapTrap() {
+        cout << "ClapTrap " << _name << " yok oldu!" << endl;
+    }
+};
+
+// FragTrap sınıfını buraya ekleyin
+
+int main() {
+    FragTrap fragTrap("Ahmet");
+    fragTrap.highFivesGuys();
+    return 0;
+}`}
+          />
         </section>
       </main>
       {showPopup && (

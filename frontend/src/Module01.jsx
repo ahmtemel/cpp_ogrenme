@@ -2,6 +2,7 @@
 import { useState, useRef } from "react"
 import CodeEditor from "./components/CodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
+import QuizSection from "./components/QuizSection.jsx"
 import { Link } from "react-router-dom"
 
 function Module01() {
@@ -175,6 +176,21 @@ int main() {
               title="Serbest Alıştırma"
             />
           </div>
+
+          <QuizSection
+            moduleId="module01"
+            question="Heap üzerinde bir integer değişken oluşturun, değerini 42 yapın, adresini ve değerini yazdırın, sonra belleği serbest bırakın."
+            expectedOutput={`Adres: 0x
+Deger: 42`}
+            initialCode={`#include <iostream>
+using namespace std;
+
+int main() {
+    // Kodunuzu buraya yazın
+    
+    return 0;
+}`}
+          />
         </section>
       </main>
       {showPopup && (

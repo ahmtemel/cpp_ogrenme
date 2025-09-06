@@ -2,6 +2,7 @@
 import { useState, useRef } from "react"
 import CodeEditor from "./components/CodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
+import QuizSection from "./components/QuizSection.jsx"
 import { Link } from "react-router-dom"
 
 function Module02() {
@@ -225,6 +226,35 @@ int main() {
               title="Serbest Alıştırma"
             />
           </div>
+
+          <QuizSection
+            moduleId="module02"
+            question="Point sınıfına - (çıkarma) operatörünü ekleyin. İki Point nesnesini çıkarıp sonucu yazdırın."
+            expectedOutput="Sonuc: (-5, 10)"
+            initialCode={`#include <iostream>
+using namespace std;
+
+class Point {
+public:
+    int x, y;
+    Point(int x = 0, int y = 0) : x(x), y(y) {}
+    
+    // Çıkarma operatörünü buraya ekleyin
+    
+    void display() const {
+        cout << "(" << x << ", " << y << ")";
+    }
+};
+
+int main() {
+    Point p1(5, 15);
+    Point p2(10, 5);
+    Point p3 = p1 - p2;
+    cout << "Sonuc: ";
+    p3.display();
+    return 0;
+}`}
+          />
         </section>
       </main>
       {showPopup && (

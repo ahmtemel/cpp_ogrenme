@@ -66,7 +66,9 @@ const CodeEditor = React.forwardRef((props, ref) => {
       <h3 className="code-editor-title">{title || "C++ Kod Editörü"}</h3>
       <CodeMirror
         value={code}
-        height="300px"
+        height="auto"
+        minHeight="300px"
+        maxHeight="600px"
         extensions={[cpp()]}
         theme={oneDark}
         onChange={(value) => setCode(value)}

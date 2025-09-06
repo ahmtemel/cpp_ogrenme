@@ -2,6 +2,7 @@
 import { useState, useRef } from "react"
 import CodeEditor from "./components/CodeEditor.jsx"
 import AIPopup from "./components/AIPopup.jsx"
+import QuizSection from "./components/QuizSection.jsx"
 import { Link } from "react-router-dom"
 
 function Module04() {
@@ -223,6 +224,24 @@ int main() {
                 title="Serbest Alıştırma"
               />
             </div>
+
+            <QuizSection
+              moduleId="module04"
+              question="Soyut Shape sınıfı ve ondan türeyen Circle sınıfı oluşturun. Circle'ın alanını hesaplayıp yazdırın."
+              expectedOutput="Circle alanı: 78.5"
+              initialCode={`#include <iostream>
+using namespace std;
+
+// Shape sınıfını buraya ekleyin (soyut sınıf)
+
+// Circle sınıfını buraya ekleyin
+
+int main() {
+    Circle c(5); // yarıçapı 5
+    c.printArea();
+    return 0;
+}`}
+            />
           </section>
         </main>
       </div>

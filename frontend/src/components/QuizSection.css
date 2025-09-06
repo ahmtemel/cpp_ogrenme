@@ -1,0 +1,280 @@
+.quiz-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.15);
+  border: 2px solid var(--border);
+  position: relative;
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.quiz-header h3 {
+  color: var(--primary);
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.hint-button {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border: 2px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hint-button:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  transform: translateY(-2px);
+}
+
+.quiz-question {
+  margin-bottom: 1.5rem;
+}
+
+.quiz-question h4 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.quiz-question p {
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.quiz-hint {
+  background: var(--muted);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.quiz-hint h4 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.expected-output {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  margin-top: 0.5rem;
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-content {
+  background: linear-gradient(135deg, var(--card) 0%, var(--secondary) 100%);
+  border-radius: var(--radius);
+  padding: 3rem;
+  text-align: center;
+  border: 3px solid var(--accent);
+  box-shadow: 0 20px 60px rgba(236, 72, 153, 0.4);
+  animation: bounceIn 0.5s ease;
+}
+
+.success-content h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  text-shadow: 2px 2px 4px rgba(236, 72, 153, 0.3);
+}
+
+.success-content p {
+  color: var(--foreground);
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.hearts {
+  font-size: 2.5rem;
+  animation: heartbeat 1s ease-in-out infinite;
+  letter-spacing: 0.3rem;
+  margin-top: 1rem;
+}
+
+.error-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.error-content {
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 50%, #ffb6c1 100%);
+  border-radius: var(--radius);
+  padding: 3rem;
+  text-align: center;
+  border: 3px solid #ff69b4;
+  box-shadow: 0 20px 60px rgba(255, 105, 180, 0.4);
+  animation: shakeIn 0.5s ease;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.error-content h3 {
+  color: #dc143c;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  text-shadow: 2px 2px 4px rgba(220, 20, 60, 0.3);
+}
+
+.error-content p {
+  color: #8b0000;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.error-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.error-section {
+    position: relative; /* Bu satırı ekleyin */
+}
+
+.error-section h4 {
+  color: #dc143c;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.error-output {
+  background: #ffffff;
+  border: 2px solid #ffb6c1;
+  border-radius: var(--radius);
+  padding: 1rem;
+  font-family: "Fira Code", monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.error-output.expected {
+  border-color: #90ee90;
+  background: #f0fff0;
+}
+
+.error-output.actual {
+  border-color: #ffcccb;
+  background: #fff5f5;
+}
+
+.comfort-hearts {
+  font-size: 2rem;
+  animation: comfortPulse 2s ease-in-out infinite;
+  letter-spacing: 0.3rem;
+  margin-top: 1rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes shakeIn {
+  0% {
+    transform: scale(0.3) rotate(-10deg);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  50% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes comfortPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}

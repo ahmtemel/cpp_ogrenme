@@ -1,5 +1,3 @@
-"use client"
-
 // frontend/src/App.jsx
 import { useState, useEffect } from "react"
 import { Routes, Route, Link, useLocation } from "react-router-dom"
@@ -37,8 +35,7 @@ function App() {
       <header className="App-header">
         <h1>💕 C++ Aşkı ile Öğrenme Platformu 💕</h1>
         <p>
-          Kodlama sevginizi keşfedin! C++ ile programlama dünyasına romantik bir yolculuk yapın. Her satır kod, yeni
-          bir aşk hikayesi...
+          C++ öğrenirken bir yandan da seni ne kadar sevdiğimi sürekli duymak ister misin güzelim?
         </p>
       </header>
 
@@ -76,10 +73,10 @@ function App() {
           />
 
           {/* Modül sayfaları */}
-          <Route path="/module00" element={<Module00 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
-          <Route path="/module01" element={<Module01 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
-          <Route path="/module02" element={<Module02 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
-          <Route path="/module03" element={<Module03 setIsPopupVisibleInApp={setIsPopupVisibleInApp} />} />
+          <Route path="/module00" element={<Module00 />} />
+          <Route path="/module01" element={<Module01 />} />
+          <Route path="/module02" element={<Module02 />} />
+          <Route path="/module03" element={<Module03 />} />
           <Route path="/module04" element={<Module04 />} />
         </Routes>
       </main>

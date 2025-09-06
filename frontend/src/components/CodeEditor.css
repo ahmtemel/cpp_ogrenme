@@ -15,17 +15,32 @@
   font-weight: 600;
 }
 
-/* Style the CodeMirror container */
+/* Style the CodeMirror container from @uiw/react-codemirror */
 .code-editor-container .cm-editor {
   border: 2px solid var(--border);
   border-radius: var(--radius);
   font-family: "Fira Code", "Consolas", monospace;
   font-size: 14px;
+  background: #1e1e1e !important;
+  resize: vertical;
+  overflow: auto;
 }
 
 .code-editor-container .cm-editor.cm-focused {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Ensure proper styling for the editor content */
+.code-editor-container .cm-content {
+  padding: 1rem;
+  min-height: 250px;
+}
+
+/* Allow the scroller to grow with content */
+.code-editor-container .cm-scroller {
+  font-family: "Fira Code", "Consolas", monospace;
+  line-height: 1.5;
 }
 
 .code-editor-buttons {
@@ -39,13 +54,18 @@
   background: var(--muted);
   border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem;
+  padding: 1.5rem;
   margin-top: 2rem;
   white-space: pre-wrap;
   word-break: break-word;
   color: var(--foreground);
-  min-height: 60px;
+  min-height: 120px;
+  max-height: 400px;
+  overflow-y: auto;
   position: relative;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .code-editor-output::before {
@@ -60,4 +80,23 @@
   color: var(--accent);
   font-weight: 600;
   border: 1px solid var(--border);
+}
+
+/* Custom scrollbar for output area */
+.code-editor-output::-webkit-scrollbar {
+  width: 8px;
+}
+
+.code-editor-output::-webkit-scrollbar-track {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+.code-editor-output::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 4px;
+}
+
+.code-editor-output::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }
