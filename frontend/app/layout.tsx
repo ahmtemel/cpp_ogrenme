@@ -11,7 +11,7 @@ export default function RootLayout({
     <div className="app-layout">
       <head>
         <title>💕 C++ Aşkı ile Öğrenme Platformu 💕</title>
-        <meta name="description" content="Kodlama sevginizi keşfedin! C++ ile programlama dünyasına romantik bir yolculuk yapın." />
+        <meta name="description" content="C++ öğrenirken bir yandan da seni ne kadar sevdiğimi sürekli duymak ister misin güzelim?" />
       </head>
       {children}
     </div>
