@@ -57,8 +57,7 @@ int main() {
         <section ref={contentRef} onMouseUp={handleTextSelection} className="module-content">
           <h2>💖 C++ ile Aşka Giriş 💖</h2>
           <p>
-            Hoş geldiniz sevgili öğrenciler! C++ programlama diline olan aşkınızı keşfetmeye hazır mısınız? Bu romantik
-            yolculukta, kodlamanın büyülü dünyasında birlikte ilerleyeceğiz.
+            Hoşgeldin sevgilim benimle bu güzel maceraya var mısın?
           </p>
 
           <h3>💕 Neden C++?</h3>
